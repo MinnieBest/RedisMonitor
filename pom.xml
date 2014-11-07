@@ -10,9 +10,6 @@
 	<name>RedisMonitor</name>
 	<url>http://maven.apache.org</url>
 
-	<!-- <build> -->
-	<!-- <outputDirectory>${basedir}/src/main/webapp/WEB-INF/classes</outputDirectory> -->
-	<!-- </build> -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -295,7 +292,7 @@
 							<descriptors>
 								<descriptor>${basedir}/src/main/assembly/dev.xml</descriptor>
 							</descriptors>
-							<finalName>redis-monitor</finalName>
+							<finalName>RedisMonitor</finalName>
 							<outputDirectory>${project.build.directory}</outputDirectory>
 						</configuration>
 					</plugin>

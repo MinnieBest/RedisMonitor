@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+           
+    <bean id="userJedisReadPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxActive" value="${user.read.maxActive}" />
+		<property name="maxIdle" value="${user.read.maxIdle}" />
+		<property name="maxWait" value="${user.read.maxWait}" />
+		<property name="testOnBorrow" value="${user.read.testOnBorrow}" />
+	</bean>
+	<bean id="userJedisWritePoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxActive" value="${user.write.maxActive}" />
+		<property name="maxIdle" value="${user.write.maxIdle}" />
+		<property name="maxWait" value="${user.write.maxWait}" />
+		<property name="testOnBorrow" value="${user.write.testOnBorrow}" />
+	</bean>
+	
+	<bean id="userJedisReadPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="userJedisReadPoolConfig" />
+		<constructor-arg index="1" value="${user.read.cache_ip}"/>
+		<constructor-arg index="2" value="${user.read.cache_port}"/>
+	</bean>
+	<bean id="userJedisWritePool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="userJedisReadPoolConfig" />
+		<constructor-arg index="1" value="${user.read.cache_ip}"/>
+		<constructor-arg index="2" value="${user.read.cache_port}"/>
+	</bean>
+	
+   <bean id="userRedisCacheReadServer" class="com.raxtone.internetnavi.redis.UserRedisCacheReadServer">
+       <property name="jedisReadPool" ref="userJedisReadPool"/>
+   </bean>
+   <bean id="userRedisCacheWriteServer" class="com.raxtone.internetnavi.redis.UserRedisCacheWriteServer">
+       <property name="jedisWritePool" ref="userJedisWritePool"/>
+   </bean>
+   
+   <!-- redis factory -->
+   <bean id="reidsCacheReadFactory" class="fe.interfaceserver.cache.redis.RedisCacheReadFactory">
+      <property name="redisMap">
+         <map>
+           <entry key="userRead" value-ref="userRedisCacheReadServer"/>
+           <entry key="poiRead" value-ref="poiRedisCacheReadServer"/>
+         </map>
+      </property>
+   </bean>
+   
+   <bean id="redisCacheWriteFactory" class="fe.interfaceserver.cache.redis.RedisCacheWriteFactory">
+       <property name="redisMap">
+         <map>
+           <entry key="userWrite" value-ref="userRedisCacheWriteServer"/>
+           <entry key="poiWrite" value-ref="poiRedisCacheWriteServer"/>
+         </map>
+      </property>
+   </bean>
+   
+   <!-- 对外调用server -->
+   <bean id="baseRedisCacheServer" class="fe.interfaceserver.cache.redis.BaseRedisCacheServer"></bean>
+   
+   <!-- 主备链接测试 -->
+    <bean id="redisCacheReplacation" class="fe.interfaceserver.cache.redis.RedisCacheReplacation" init-method="init">
+        <property name="writePool">
+           <map> 
+               <entry key="userWritePoll">
+                 <list>
+                    <ref bean="userJedisPool4"/>
+                    <ref bean="userJedisPool5"/>
+                    <ref bean="userJedisPool6"/>
+                 </list>
+               </entry>
+               <entry key="poiWritePoll">
+                 <list>
+                    <ref bean="poiJedisPool4"/>
+                    <ref bean="poiJedisPool5"/>
+                    <ref bean="poiJedisPool6"/>
+                 </list>
+               </entry>
+           </map>
+        </property>
+        <property name="readPool">
+           <map> 
+               <entry key="userReadPool">
+                 <list>
+                    <ref bean="userJedisPool1"/>
+                    <ref bean="userJedisPool2"/>
+                    <ref bean="userJedisPool3"/>
+                 </list>
+               </entry>
+               <entry key="poiReadPool">
+                 <list>
+                    <ref bean="poiJedisPool1"/>
+                    <ref bean="poiJedisPool2"/>
+                    <ref bean="poiJedisPool3"/>
+                 </list>
+               </entry>
+           </map>
+        </property>
+    </bean>
+   
+    <bean id="poiJedisReadPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxActive" value="${poi.read.maxActive}" />
+		<property name="maxIdle" value="${poi.read.maxIdle}" />
+		<property name="maxWait" value="${poi.read.maxWait}" />
+		<property name="testOnBorrow" value="${poi.read.testOnBorrow}" />
+	</bean>
+	<bean id="poiJedisWritePoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxActive" value="${poi.write.maxActive}" />
+		<property name="maxIdle" value="${poi.write.maxIdle}" />
+		<property name="maxWait" value="${poi.write.maxWait}" />
+		<property name="testOnBorrow" value="${poi.write.testOnBorrow}" />
+	</bean>
+
+	<bean id="poiJedisPool1" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="poiJedisReadPoolConfig" />
+		<constructor-arg index="1" value="${poi.read.cache_ip}"/>
+		<constructor-arg index="2" value="${poi.read.cache_port}"/>
+	</bean>
+	<bean id="poiJedisPool2" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="poiJedisReadPoolConfig" />
+		<constructor-arg index="1" value="${poi.read.cache_ip}"/>
+		<constructor-arg index="2" value="${poi.read.cache_port}"/>
+	</bean>
+	<bean id="poiJedisPool3" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="poiJedisReadPoolConfig" />
+		<constructor-arg index="1" value="${poi.read.cache_ip}"/>
+		<constructor-arg index="2" value="${poi.read.cache_port}"/>
+	</bean>
+	
+	<bean id="poiJedisPool4" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="poiJedisWritePoolConfig" />
+		<constructor-arg index="1" value="${poi.write.cache_ip}"/>
+		<constructor-arg index="2" value="${poi.write.cache_port}"/>
+	</bean>
+	<bean id="poiJedisPool5" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="poiJedisWritePoolConfig" />
+		<constructor-arg index="1" value="${poi.write.cache_ip}"/>
+		<constructor-arg index="2" value="${poi.write.cache_port}"/>
+	</bean>
+	<bean id="poiJedisPool6" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="poiJedisWritePoolConfig" />
+		<constructor-arg index="1" value="${poi.write.cache_ip}"/>
+		<constructor-arg index="2" value="${poi.write.cache_port}"/>
+	</bean>
+
+   <bean id="poiRedisCacheReadServer" class="com.raxtone.internetnavi.redis.PoiRedisCacheReadServer">
+       <property name="jedisReadPool">
+		  <list>
+		      <ref bean="poiJedisPool1"/>
+		      <ref bean="poiJedisPool2"/>
+		      <ref bean="poiJedisPool3"/>
+		  </list>
+		</property>
+   </bean>
+   <bean id="poiRedisCacheWriteServer" class="com.raxtone.internetnavi.redis.PoiRedisCacheWriteServer">
+       <property name="jedisWritePool">
+		  <list>
+		      <ref bean="poiJedisPool4"/>
+		      <ref bean="poiJedisPool5"/>
+		      <ref bean="poiJedisPool6"/>
+		  </list>
+		</property>
+   </bean>
+
+</beans>

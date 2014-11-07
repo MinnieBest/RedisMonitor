@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Redis-Server-Config>
+   <Redis-Servers>
+      <Redis-Server uuid="0101">
+         <name>userWriter</name>
+         <description>用户写服务</description>
+         <host>10.45.47.79</host>
+         <port>6379</port>
+         <maxActive>300</maxActive>
+         <maxIdle>50</maxIdle>
+         <maxWait>3000</maxWait>
+         <testOnBorrow>true</testOnBorrow>
+         <isMaster>true</isMaster>
+         <Slaves>
+            <slave uuid="0102">
+               <name>userRead</name>
+               <description>用户读服务</description>
+               <host>10.45.47.79</host>
+               <port>6379</port>
+               <maxActive>300</maxActive>
+               <maxIdle>50</maxIdle>
+               <maxWait>3000</maxWait>
+               <testOnBorrow>true</testOnBorrow>
+               <isMaster>false</isMaster>
+            </slave>
+         </Slaves>
+      </Redis-Server>
+   </Redis-Servers>
+</Redis-Server-Config>

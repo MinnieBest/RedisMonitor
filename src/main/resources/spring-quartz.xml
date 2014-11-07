@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	default-lazy-init="true">
+	
+	<bean id="redisMemeryJob" class="com.redis.monitor.redis.quartz.RedisMemeryJob">
+	       <property name="preffix" value="memery"></property>
+	</bean>
+	<bean id="redisKeysJob" class="com.redis.monitor.redis.quartz.RedisKeysJob">
+	      <property name="preffix" value="keys"></property>
+	</bean>
+	<bean id="redisOperateJob" class="com.redis.monitor.redis.quartz.RedisOperateJob">
+	       <property name="preffix" value="operate"></property>
+	</bean>
+	
+	  <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->    
+   <bean id="startQuertz" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+        <property name="triggers">  
+            <list>  
+              <!--  <ref bean="saveRedisMemery"/>
+               <ref bean="saveRedisKeys"/>
+               <ref bean="saveRedisOperates"/> -->
+            </list>  
+       </property>  
+    </bean>
+    
+    
+    <bean id="saveRedisMemery" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+       <property name="jobDetail">  
+           <ref bean="tiggerSaveRedisMemery"/>  
+       </property>  
+        <!-- cron表达式      -->
+       <property name="cronExpression">  
+           <value>0/2 * * * * ?</value>  
+       </property>  
+   </bean>  
+   <bean id="tiggerSaveRedisMemery" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+       <property name="targetObject">  
+           <ref bean="redisMemeryJob"/>  
+       </property>  
+       <property name="targetMethod">  
+           <value>saveData</value>  
+       </property>  
+   </bean>  
+   
+   
+   <bean id="saveRedisKeys" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+       <property name="jobDetail">  
+           <ref bean="tiggerSaveRedisKeys"/>  
+       </property>  
+        <!-- cron表达式      -->
+       <property name="cronExpression">  
+           <value>0/2 * * * * ?</value>  
+       </property>  
+   </bean>  
+   <bean id="tiggerSaveRedisKeys" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+       <property name="targetObject">  
+           <ref bean="redisKeysJob"/>  
+       </property>  
+       <property name="targetMethod">  
+           <value>saveData</value>  
+       </property>  
+   </bean>  
+   
+   
+    <bean id="saveRedisOperates" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+       <property name="jobDetail">  
+           <ref bean="tiggerSaveRedisOperates"/>  
+       </property>  
+        <!-- cron表达式      -->
+       <property name="cronExpression">  
+           <value>0/2 * * * * ?</value>  
+       </property>  
+   </bean>  
+   <bean id="tiggerSaveRedisOperates" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+       <property name="targetObject">  
+           <ref bean="redisOperateJob"/>  
+       </property>  
+       <property name="targetMethod">  
+           <value>saveData</value>  
+       </property>  
+   </bean>  
+</beans>

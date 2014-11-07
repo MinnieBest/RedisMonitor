@@ -1,0 +1,122 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>redisMonitor</title>
+	<link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="/resources/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="resources/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-dropdown.js"></script>
+	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-scrollspy.js"></script>
+	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-button.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="/js/index/index.js"></script>
+</head>
+<body>
+
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="#">Angel</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">redis服务 <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li class=""><a href="#one">飞路快用户读服务</a></li>
+								<li><a href="#two">飞路快用户写服务</a></li>
+								<li class="divider"></li>
+								<li><a href="#three">飞路快poi写服务</a></li>
+								<li><a href="#three">飞路快poi读服务</a></li>
+							</ul></li>
+						<li><a href="#">keys</a></li>
+						<li><a href="#">redis-config.xml</a></li>
+						<li><a href="#">redis节点管理</a></li>
+					</ul>
+					<ul class="nav pull-right">
+						<li class="active"><a href="#"><font size="5">redis://127.0.0.1:6379</font></a></li>
+						<li class="divider-vertical"></li>
+						<li><button class="btn btn-small btn-primary">flushall</button></li>
+						<li class="divider-vertical"></li>
+						<li>
+							<button class="btn btn-small btn-primary">flushDB</button>
+						</li>
+					</ul>
+				</div>
+				<!-- /.nav-collapse -->
+			</div>
+		</div>
+		<!-- /navbar-inner -->
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span3">
+				<div class="well sidebar-nav info">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th colspan="2">Infomation</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Mark</td>
+								<td>Otto</td>
+							</tr>
+							<tr>
+								<td>Jacob</td>
+								<td>Thornton</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!--/.well -->
+			</div>
+			<!--/span-->
+			<div class="span9">
+				<div class="hero-unit chart">
+					<div id="container"></div>
+				</div>
+				<div class="hero-unit chart">
+					<div id="keysChart"></div>
+				</div>
+				<div class="hero-unit chart">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Username</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Mark</td>
+								<td>Otto</td>
+								<td>@mdo</td>
+							</tr>
+							<tr>
+								<td>Jacob</td>
+								<td>Thornton</td>
+								<td>@fat</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+			<!--/span-->
+		</div>
+		<!--/row-->
+	</div>
+	
+	<hr>
+	<footer>
+		<p>&copy; 中国共产党铁血忠义青年团 2012</p>
+	</footer>
+</body>
+</html>

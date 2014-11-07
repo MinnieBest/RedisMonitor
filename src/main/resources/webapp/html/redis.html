@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>home</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link href="/kendo/styles/kendo.common.min.css" rel="stylesheet" type="text/css" />
+		<link href="/kendo/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="/kendo/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/kendo/js/kendo.web.min.js"></script>
+		<style type="text/css">
+			html, body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				background: #FFFFF8;
+				font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+				font-size: 12px;
+			}
+			#main{height: 100%;}
+			#body{height: 100%;}
+			#herizontal{height: 100%;}
+			#vertical{height: 100%;}
+			#header {
+				height: 35px;
+				margin-top: 0px;
+				min-width:1000px;
+				background-image: url("/img/bg-header.png");
+				background-repeat: repeat-x; 
+			}
+			
+			.name {
+				float: left;
+				width:100px ;
+				height:28px ;
+				background-image :url("/img/logo.png") ;
+				background-repeat: no-repeat;
+			}
+			
+			.menu{
+				width: 450px;
+				float: left;
+			}
+			
+			.menu a{
+				margin-left:15px;
+			}
+			
+			.connect-info{
+				width:250px ;
+				float:right;
+			}
+			.connect-info span {
+				margin-top:5px ;
+			}
+			
+			.connect-info a {
+				margin-top:2px ;
+			}
+		</style>
+		<script type="text/javascript" >
+			$(function(){
+				console.log("start...") ;
+				 /* $("#menu").kendoMenu(); */
+				 
+				/* $("#vertical").kendoSplitter({
+                    orientation: "vertical",
+                    panes: [
+                        { collapsible: false , resizable: false,size:"40px"},
+                        { collapsible: false, resizable: false,size: "100%" } 
+                    ]
+                }); 
+				$("#herizontal").kendoSplitter({
+                    panes: [
+                        { collapsible: false , resizable: false,size:"300px"},
+                        { collapsible: false, resizable: false,size: "100%" } 
+                    ] 
+                });*/
+			}) ;
+		</script>
+	</head>
+	<body>
+		<div id="main">
+			<div id="vertical">
+				<div id="header" class="">
+				<div style="float:left;width:100%">
+					<div class="name"></div>
+						<div class="menu">
+						<img src="/img/list.png" alt="" />
+						<img src="/img/config.png" alt="" />
+						<img src="/img/console.png" alt="" />
+						<img src="/img/help.png" alt="" />
+					</div>
+					<div class="connect-info">
+						<img src="/img/connect-info.png" alt="" />
+					</div>
+					
+					</div>
+				</div>
+				<div id="body">
+					<div id="herizontal">
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+			</div>		
+		</div>
+	</body>
+</html>
